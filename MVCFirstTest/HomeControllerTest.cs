@@ -14,8 +14,10 @@ namespace MVCFirstTest
             var controller = new HomeController();
             var result = controller.Details(2) as ViewResult;
             var product = (Products)result.ViewData.Model;
-            Assert.AreEqual("Mobile", product.Name);
-            Assert.AreEqual(200, product.Price);
+            // Assert
+            Assert.IsNotNull(product);
+            Assert.AreEqual("Laptop", product.Name);
+            Assert.AreEqual(100, product.Price);
         }
     }
 }
