@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using MVCFirst.Models;
+using System;
 using System.Web.Mvc;
 
 namespace MVCFirst.Controllers
@@ -11,7 +9,15 @@ namespace MVCFirst.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            // Add action logic here
+            throw new NotImplementedException();
+        }
+
+        // GET: Details
+        public ActionResult Details(int id = 1)
+        {
+            var product = new Products(id, "Laptop", 100);
+            return View("Details", product);
         }
     }
 }
