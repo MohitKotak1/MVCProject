@@ -13,10 +13,10 @@ pool:
   name: default
 
 steps:
-- task: NuGetToolInstaller@1
 - task: MSBuild@1
   inputs:
-    solution: 'MVCFirst.sln'
+    solution: '**/*.sln'
+- task: NuGetToolInstaller@1
 
 # - task: NuGetCommand@2
 #   inputs:
