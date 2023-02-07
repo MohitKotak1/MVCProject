@@ -17,6 +17,14 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    feedsToUse: '$(Build.SourcesDirectory)/MVCFirst.sln'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '$(Build.SourcesDirectory)/MVCFirst.sln'
 - task: NuGetToolInstaller@0
 
 - task: NuGetCommand@2
