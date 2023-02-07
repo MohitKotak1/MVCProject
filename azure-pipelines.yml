@@ -13,10 +13,12 @@ pool:
   name: default
 
 steps:
-- task: MSBuild@1
+# - task: MSBuild@1
+#   inputs:
+#     solution: '**/*.sln'
+- task: VSBuild@1
   inputs:
-    solution: '**/*.sln'
-- task: NuGetToolInstaller@1
+    solution: '**\*.sln'
 
 # - task: NuGetCommand@2
 #   inputs:
