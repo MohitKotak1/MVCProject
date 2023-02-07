@@ -1,0 +1,25 @@
+﻿@model MVCFirst.Models.Products
+@{
+    ViewBag.Title = "Product Details";
+}
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+<h2>Product Details</h2>
+<br />
+<table style="width:100%">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.Name</td>
+        <td>@Model.Price</td>
+    </tr>
+</table>
+
