@@ -17,6 +17,14 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+# Restore from a project scoped feed in the same organization
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    feedsToUse: 'select'
+    includeNuGetOrg: true
+    restoreSolution: '**/*.sln'
+
 - task: NuGetToolInstaller@0
 - task: NuGetCommand@2
   inputs:
