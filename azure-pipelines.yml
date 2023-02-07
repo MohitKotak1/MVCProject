@@ -20,7 +20,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
-    feedsToUse: '$(Build.SourcesDirectory)/MVCFirst.sln'
+    feedsToUse: 'select'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
@@ -31,21 +31,5 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish artifacts'
-  inputs:
-    PathtoPublish: $(build.artifactstagingdirectory)
-    ArtifactName: 'PublishBuildArtifacts'
 
