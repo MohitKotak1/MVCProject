@@ -10,3 +10,4 @@
 *.manifest
 *.vsidx
 /.vs/MVCFirst/v17/.suo
+/MVCFirst/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
