@@ -9,7 +9,7 @@ trigger:
     - main
 
 pool:
-  name: MVCProject Pipelines
+  name: default
   demands:
   - msbuild
   - visualstudio
@@ -27,14 +27,14 @@ steps:
 - task: NuGetCommand@2
   displayName: 'NuGet restore'
   inputs:
-    restoreSolution: src/ProviderPortal.sln
+    restoreSolution: src/MVCFirst.sln
     feedsToUse: config
     nugetConfigPath: src/nuget.config
 
 - task: VSBuild@1
-  displayName: 'Build solution src/ProviderPortal.sln'
+  displayName: 'Build solution src/MVCFirst.sln'
   inputs:
-    solution: src/ProviderPortal.sln
+    solution: src/MVCFirst.sln
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
 
