@@ -37,15 +37,3 @@ steps:
     solution: src/MVCFirst.sln
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
-
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
-  inputs:
-    SourceFolder: src/Publish
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-  enabled: false
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  inputs:
-    PathtoPublish: src/Publish
