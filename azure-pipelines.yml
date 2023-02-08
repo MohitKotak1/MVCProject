@@ -33,7 +33,6 @@ steps:
     SourceFolder: '../src/Publish'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    CleanTargetFolder: true
     OverWrite: true
     preserveTimestamp: true
     
