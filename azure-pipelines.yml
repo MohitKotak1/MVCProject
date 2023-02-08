@@ -24,17 +24,32 @@ steps:
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
+  displayName: 'Build solution'
   inputs:
     solution: '$(solution)'   
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-- task: CopyFiles@2
+
+- task: VSTest@2
+  displayName: 'Unit Test Run'
   inputs:
-    SourceFolder: '../src/Publish'
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    OverWrite: true
-    preserveTimestamp: true
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- script: |
+          echo $(Build.ArtifactStagingDirectory) + "Artific"
+          echo $(System.DefaultWorkingDirectory) + "DefaultWorking"
+          echo $(Agent.TempDirectory)  + "TempDirectory"
+          echo $(buildPlatform) + "buildPlatform"
+          echo $(buildConfiguration) + "buildConfiguration"
+
+# - task: CopyFiles@2
+#   inputs:
+#     SourceFolder: '../src/Publish'
+#     Contents: '**'
+#     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+#     OverWrite: true
+#     preserveTimestamp: true
     
 # - task: VSTest@2
 #   inputs:
