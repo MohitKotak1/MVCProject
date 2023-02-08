@@ -28,7 +28,15 @@ steps:
     solution: '$(solution)'   
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'src/Publish'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    CleanTargetFolder: true
+    OverWrite: true
+    preserveTimestamp: true
+    
 # - task: VSTest@2
 #   inputs:
 #     platform: '$(buildPlatform)'
