@@ -26,11 +26,16 @@ steps:
 - task: VSBuild@1
   displayName: 'Build solution'
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:ExcludeApp_Data=True /p:PrecompileBeforePublish=True /p:EnableUpdateable=True /p:DebugSymbols=True /p:WDPMergeOption="DonotMerge" /p:WebPublishMethod="FileSystem" /p:PublishProvider="FileSystem" /p:DeleteExistingFiles="True" /p:DeployOnBuild=True /p:PackageLocation="$(Build.ArtifactStagingDirectory)"'
+    solution: '$(solution)'    
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: 'Build code'
+    publishLocation: 'pipeline'
+    
 # - task: VSTest@2
 #   displayName: 'Unit Test Run'
 #   inputs:
