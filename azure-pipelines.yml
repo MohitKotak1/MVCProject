@@ -30,7 +30,7 @@ steps:
     configuration: '$(buildConfiguration)'
 - task: CopyFiles@2
   inputs:
-    SourceFolder: 'src/Publish'
+    SourceFolder: '../src/Publish'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
