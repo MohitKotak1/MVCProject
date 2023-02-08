@@ -11,8 +11,7 @@ trigger:
 pool:
   name: default
   demands:
-  - msbuild
-  - visualstudio
+   - agent.name -equals $(AGENT_NAME)
  
 variables:
   buildPlatform: 'Any CPU'
