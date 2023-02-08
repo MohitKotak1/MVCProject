@@ -28,12 +28,9 @@ steps:
     feedsToUse: config
     nugetConfigPath: src/nuget.config
 
-- task: VSBuild@1
-  displayName: 'Build solution **/*.sln'
+- task: MSBuild@1
   inputs:
     solution: '**/*.sln'
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
 
 # - task: CopyFiles@2
 #   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
