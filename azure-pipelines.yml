@@ -9,30 +9,43 @@ trigger:
     - main
 
 pool:
-  name: default
+  name: MVCProject Pipelines
+  demands:
+  - msbuild
+  - visualstudio
 
 variables:
-  solutions: '**/*.sln'
-  buildPlatform: 'Any CPU'
+  buildPlatform: 'any cpu'
   buildConfiguration: 'Release'
 
 steps:
-# Restore from a project scoped feed in the same organization
+- task: NuGetToolInstaller@1
+  displayName: 'Use NuGet 5.8.0'
+  inputs:
+    versionSpec: 5.8.0
+
 - task: NuGetCommand@2
+  displayName: 'NuGet restore'
   inputs:
-    command: 'restore'
-    feedsToUse: 'select'
-    includeNuGetOrg: true
-    restoreSolution: '**/*.sln'
+    restoreSolution: src/ProviderPortal.sln
+    feedsToUse: config
+    nugetConfigPath: src/nuget.config
 
-- task: NuGetToolInstaller@0
-- task: NuGetCommand@2
+- task: VSBuild@1
+  displayName: 'Build solution src/ProviderPortal.sln'
   inputs:
-    restoreSolution: '$(solution)'
+    solution: src/ProviderPortal.sln
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
 
-- task: MSBuild@1
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
   inputs:
-    solution: '**/*.sln'
+    SourceFolder: src/Publish
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  enabled: false
 
-
-
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: src/Publish
