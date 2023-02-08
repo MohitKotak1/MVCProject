@@ -10,15 +10,21 @@ trigger:
 
 pool:
   name: default
+  demands:
+  - msbuild
+  - visualstudio
  
 variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 steps:
-- task: MSBuild@1
+- task: VSBuild@1
+  displayName: 'VS Build Solution'
   inputs:
-    solution: '**/*.sln'
+    solution: '$(solution)'
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
 
 # - task: CopyFiles@2
 #   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
