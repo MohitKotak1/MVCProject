@@ -30,18 +30,22 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- task: VSTest@2
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)\\MVCFirstTest'
+    
 # - task: VSTest@2
 #   displayName: 'Unit Test Run'
 #   inputs:
 #     platform: '$(buildPlatform)'
 #     configuration: '$(buildConfiguration)'
 
-- script: |
-          echo $(Build.ArtifactStagingDirectory) + "Artific"
-          echo $(System.DefaultWorkingDirectory) + "DefaultWorking"
-          echo $(Agent.TempDirectory)  + "TempDirectory"
-          echo $(buildPlatform) + "buildPlatform"
-          echo $(buildConfiguration) + "buildConfiguration"
+
 
 # - task: CopyFiles@2
 #   inputs:
