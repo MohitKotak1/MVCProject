@@ -10,9 +10,7 @@ trigger:
 
 pool:
   name: default
-  demands:
-   - agent.name -equals $(AGENT_NAME)
-
+  
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
