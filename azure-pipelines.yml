@@ -26,7 +26,8 @@ steps:
 - task: VSBuild@1
   displayName: 'Build solution'
   inputs:
-    solution: '$(solution)'    
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=True /p:PublishProfile=$(Build.BuildNumber) /p:PackageLocation="$(Build.ArtifactStagingDirectory)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
@@ -37,12 +38,11 @@ steps:
 #     publishLocation: 'filepath'
 #     fileSharePath: '$(System.DefaultWorkingDirectory)\publish\$(Build.BuildNumber)'
     
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Pipeline.Workspace)'
-    artifact: 'Publish folder'
-    publishLocation: 'filepath'
-    fileSharePath: '$(System.DefaultWorkingDirectory)\publish\$(Build.BuildNumber)'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
 
 
 # - task: VSTest@2
