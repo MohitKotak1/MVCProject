@@ -30,13 +30,21 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+# - task: PublishPipelineArtifact@1
+#   inputs:
+#     targetPath: '$(Pipeline.Workspace)'
+#     artifact: 'Build code'
+#     publishLocation: 'filepath'
+#     fileSharePath: '$(System.DefaultWorkingDirectory)\publish\$(Build.BuildNumber)'
+    
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Pipeline.Workspace)'
-    artifact: 'Build code'
+    artifact: 'Publish folder'
     publishLocation: 'filepath'
     fileSharePath: '$(System.DefaultWorkingDirectory)\publish\$(Build.BuildNumber)'
-    
+
+
 # - task: VSTest@2
 #   displayName: 'Unit Test Run'
 #   inputs:
