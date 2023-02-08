@@ -27,7 +27,7 @@ steps:
   displayName: 'Build solution'
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:ExcludeApp_Data=True /p:PrecompileBeforePublish=True /p:EnableUpdateable=True /p:DebugSymbols=True /p:WDPMergeOption="DonotMerge" /p:WebPublishMethod="FileSystem" /p:PublishProvider="FileSystem" /p:DeleteExistingFiles="True" /p:DeployOnBuild=True /p:PackageLocation="$(Build.ArtifactStagingDirectory)"'
+    msbuildArgs: '/p:publishUrl=$(build.artifactstagingdirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
