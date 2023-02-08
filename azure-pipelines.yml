@@ -10,12 +10,9 @@ trigger:
 
 pool:
   name: default
-  demands:
-  - msbuild
-  - visualstudio
 
 variables:
-  buildPlatform: 'any cpu'
+  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 steps:
