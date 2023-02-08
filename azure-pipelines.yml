@@ -10,10 +10,7 @@ trigger:
 
 pool:
   name: default
-  demands:
-  - msbuild
-  - visualstudio
-  
+   
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
