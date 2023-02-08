@@ -26,11 +26,13 @@ steps:
 - task: VSBuild@1
   displayName: 'Build solution'
   inputs:
-    solution: '$(solution)'   
+    solution: '$(solution)'
+    msbuildArgs: '/p:ExcludeApp_Data=True /p:PrecompileBeforePublish=True /p:EnableUpdateable=True /p:DebugSymbols=True /p:WDPMergeOption="DonotMerge" /p:WebPublishMethod="FileSystem" /p:PublishProvider="FileSystem" /p:DeleteExistingFiles="True" /p:DeployOnBuild=True /p:PackageLocation="$(Build.ArtifactStagingDirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
 - task: VSTest@2
+  displayName: 'Unit Test Run'
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
@@ -39,14 +41,6 @@ steps:
       !**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)\\MVCFirstTest'
     
-# - task: VSTest@2
-#   displayName: 'Unit Test Run'
-#   inputs:
-#     platform: '$(buildPlatform)'
-#     configuration: '$(buildConfiguration)'
-
-
-
 # - task: CopyFiles@2
 #   inputs:
 #     SourceFolder: '../src/Publish'
@@ -55,7 +49,3 @@ steps:
 #     OverWrite: true
 #     preserveTimestamp: true
     
-# - task: VSTest@2
-#   inputs:
-#     platform: '$(buildPlatform)'
-#     configuration: '$(buildConfiguration)'
