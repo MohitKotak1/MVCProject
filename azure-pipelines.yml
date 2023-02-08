@@ -34,7 +34,8 @@ steps:
   inputs:
     targetPath: '$(Pipeline.Workspace)'
     artifact: 'Build code'
-    publishLocation: 'pipeline'
+    publishLocation: 'filepath'
+    fileSharePath: '$(System.DefaultWorkingDirectory)\publish\$(Build.BuildNumber)'
     
 # - task: VSTest@2
 #   displayName: 'Unit Test Run'
