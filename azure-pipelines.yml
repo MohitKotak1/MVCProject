@@ -27,7 +27,7 @@ steps:
   displayName: 'Build solution'
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=True /p:PublishProfile=$(Build.BuildNumber) /p:PackageLocation="$(Build.ArtifactStagingDirectory)'
+    msbuildArgs: '/p:DeleteExistingFiles=True /p:DeployOnBuild=True /p:PackageLocation="$(Build.ArtifactStagingDirectory)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
