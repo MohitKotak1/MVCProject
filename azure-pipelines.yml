@@ -24,53 +24,22 @@ steps:
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
-  displayName: 'Build solution'
+  displayName: 'Build Solution & Publish'
   inputs:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:PublishProfile="$(System.DefaultWorkingDirectory)\\MVCFirst\Properties\PublishProfiles\FolderProfile.pubxml"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-# - task: DotNetCoreCLI@2
-#   inputs:
-#     command: publish
-#     publishWebProjects: True
-#     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-#     zipAfterPublish: True
-
-# - task: PublishSymbols@2
-#   displayName: 'Publish symbols path'
-#   inputs:
-#     SearchPattern: '*.*'
-#     PublishSymbols: false
-#   continueOnError: true
-
-# - task: PublishBuildArtifacts@1
-#   displayName: 'Publish Artifact'
-#   inputs:
-#     PathtoPublish: '$(build.artifactstagingdirectory)'
-#     ArtifactName: '$(Parameters.ArtifactName)'
-#     publishLocation: FilePath
-#     TargetPath: '$(Build.ArtifactStagingDirectory)\$(Build.DefinitionName)\$(Build.BuildNumber)'
-#   condition: succeededOrFailed()
-
-
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#     ArtifactName: 'drop'
-#     publishLocation: 'Container'
-
-
-# - task: VSTest@2
-#   displayName: 'Unit Test Run'
-#   inputs:
-#     testSelector: 'testAssemblies'
-#     testAssemblyVer2: |
-#       **\*test*.dll
-#       !**\*TestAdapter.dll
-#       !**\obj\**
-#     searchFolder: '$(System.DefaultWorkingDirectory)\\MVCFirstTest'
+- task: VSTest@2
+  displayName: 'Unit Test Run'
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)\\MVCFirstTest'
     
 # - task: CopyFiles@2
 #   inputs:
