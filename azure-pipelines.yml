@@ -7,9 +7,6 @@ trigger:
   branches:
     include:
     - main
-
-pool:
-  name: default
    
 variables:
   solution: '**/*.sln'
@@ -22,48 +19,60 @@ stages:
   jobs:
     - job: Build
       displayName: Build
+      
       pool: 
         name: default
-        steps:
-        - task: NuGetToolInstaller@1
+      steps:
+      - task: NuGetToolInstaller@1
 
-        - task: NuGetCommand@2
-          inputs:
-            restoreSolution: '$(solution)'
+      - task: NuGetCommand@2
+        inputs:
+          restoreSolution: '$(solution)'
 
-        - task: VSBuild@1
-          name: 'build_task'
-          displayName: 'Build Solution & Publish'
-          inputs:
-            solution: '$(solution)'
-            msbuildArgs: '/p:DeployOnBuild=true /p:PublishProfile="$(System.DefaultWorkingDirectory)\\MVCFirst\Properties\PublishProfiles\FolderProfile.pubxml"'
-            platform: '$(buildPlatform)'
-            configuration: '$(buildConfiguration)'
+      - task: VSBuild@1
+        name: 'build_task'
+        displayName: 'Build Solution & Publish'
+        inputs:
+          solution: '$(solution)'
+          msbuildArgs: '/p:DeployOnBuild=true /p:PublishProfile="$(System.DefaultWorkingDirectory)\\MVCFirst\Properties\PublishProfiles\FolderProfile.pubxml"'
+          platform: '$(buildPlatform)'
+          configuration: '$(buildConfiguration)'
 
-        - task: VSTest@2
-          name: 'unit_test_task' 
-          inputs:
-            testSelector: 'testAssemblies'
-            testAssemblyVer2: |
-              **\*test*.dll
-              !**\*TestAdapter.dll
-              !**\obj\**
-            searchFolder: '$(System.DefaultWorkingDirectory)\MVCFirstTest\bin\Debug'
+      - task: VSTest@2
+        displayName: Unit Test Execution
+        name: 'unit_test_task' 
+        inputs:
+          testSelector: 'testAssemblies'
+          testAssemblyVer2: |
+            **\*test*.dll
+            !**\*TestAdapter.dll
+            !**\obj\**
+          searchFolder: '$(System.DefaultWorkingDirectory)\MVCFirstTest\bin\Debug'
+          
+      - publish: '$(System.DefaultWorkingDirectory)\mypublishcopy'
+        displayName: Publish build files
+        artifact: buildartifcatfiles1
 
 - stage: deploy 
   displayName: Deploy Stage
   dependsOn: build
   jobs:
     - job: Deploy
+
       pool: 
         name: default
-      steps:  
+
+      steps:
+      
+      - download: current
+        artifact: buildartifcatfiles1
+      
       - task: CopyFiles@2
         name: 'publish_task'
         displayName: 'Copy Build to Release Dir'
         inputs:
-          SourceFolder: '$(Build.ArtifactStagingDirectory)\mypublishcopy'
+          SourceFolder: '$(System.DefaultWorkingDirectory)\..\buildartifcatfiles1'
           Contents: '**'
-          TargetFolder: '$(Build.ArtifactStagingDirectory)\myreleasecopy'
+          TargetFolder: '$(System.DefaultWorkingDirectory)\..\finalRelase'
           OverWrite: true
           preserveTimestamp: true
