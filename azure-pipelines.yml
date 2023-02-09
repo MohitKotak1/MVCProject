@@ -41,11 +41,19 @@ steps:
 #     platform: '$(BuildPlatform)'
 #     configuration: '$(BuildConfiguration)'
   
-- task: DotNetCoreCLI@2
+# - task: DotNetCoreCLI@2
+#   inputs:
+#     command: 'test'
+#     projects: '$(System.DefaultWorkingDirectory)\\MVCFirstTest\MVCFirstTest.csproj'
+#     arguments: '--configuration $(buildConfiguration)'
+- task: VSTest@2
   inputs:
-    command: 'test'
-    projects: '$(System.DefaultWorkingDirectory)\\MVCFirstTest\MVCFirstTest.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)\MVCFirstTest\bin\Debug'
     
 # - task: VSTest@2
 #   displayName: 'Unit Test Run'
