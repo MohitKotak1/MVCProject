@@ -59,16 +59,16 @@ stages:
         name: default
 
       steps:
-      - script: echo "Hello....." 
+      # - script: echo "Hello....." 
       # - download: current
       #   artifact: publishcopy
 
-      # - task: CopyFiles@2
-      #   name: 'publish_task'
-      #   displayName: 'Copy Build to Release Dir'
-      #   inputs:
-      #     SourceFolder: '$(Build.ArtifactStagingDirectory)\mypublishcopy'
-      #     Contents: '**'
-      #     TargetFolder: '$(Build.ArtifactStagingDirectory)\myreleasecopy'
-      #     OverWrite: true
-      #     preserveTimestamp: true
+      - task: CopyFiles@2
+        name: 'publish_task'
+        displayName: 'Copy Build to Release Dir'
+        inputs:
+          SourceFolder: '$(System.DefaultWorkingDirectory)\mypublishcopy'
+          Contents: '**'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)\myreleasecopy'
+          OverWrite: true
+          preserveTimestamp: true
