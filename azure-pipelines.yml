@@ -35,7 +35,7 @@ steps:
   displayName: 'unit tests job'
   inputs:
     command: 'test'
-    projects: '**/*Test*/*.csproj'
+    projects: '**/*\MVCFirstTest*/*.csproj'
     arguments: '--configuration debug'
     
 # - task: VSTest@2
