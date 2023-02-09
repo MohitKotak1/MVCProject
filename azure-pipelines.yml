@@ -31,12 +31,15 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: 'unit tests job'
+- task: VSTest@2
+  displayName: 'Test Assemblies'
   inputs:
-    command: 'test'
-    projects: '**/*\MVCFirstTest*/*.csproj'
-    arguments: '--configuration debug'
+    testAssemblyVer2: |
+     **\$(BuildConfiguration)\*test*.dll
+     !**\obj\**
+    codeCoverageEnabled: true
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
     
 # - task: VSTest@2
 #   displayName: 'Unit Test Run'
