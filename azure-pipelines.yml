@@ -27,16 +27,16 @@ steps:
   displayName: 'Build solution'
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeleteExistingFiles=True /p:DeployOnBuild=True /p:PackageLocation="$(Build.ArtifactStagingDirectory)"'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-# - task: PublishPipelineArtifact@1
-#   inputs:
-#     targetPath: '$(Pipeline.Workspace)'
-#     artifact: 'Build code'
-#     publishLocation: 'filepath'
-#     fileSharePath: '$(System.DefaultWorkingDirectory)\publish\$(Build.BuildNumber)'
+- task: PublishSymbols@2
+  displayName: 'Publish symbols path'
+  inputs:
+    SearchPattern: '*.*'
+    PublishSymbols: false
+  continueOnError: true
     
 # - task: PublishBuildArtifacts@1
 #   inputs:
