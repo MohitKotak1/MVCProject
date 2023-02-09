@@ -41,6 +41,7 @@ stages:
             configuration: '$(buildConfiguration)'
 
         - task: VSTest@2
+          displayName: Unit Test Execution
           name: 'unit_test_task' 
           inputs:
             testSelector: 'testAssemblies'
@@ -49,9 +50,6 @@ stages:
               !**\*TestAdapter.dll
               !**\obj\**
             searchFolder: '$(System.DefaultWorkingDirectory)\MVCFirstTest\bin\Debug'
-            
-        - publish: $(System.DefaultWorkingDirectory)\mypublishcopy
-          artifact: publishcopy
 
 - stage: deploy 
   displayName: Deploy Stage
@@ -61,8 +59,9 @@ stages:
       pool: 
         name: default
       steps:  
-      - download: current
-        artifact: publishcopy
+      # - download: current
+      #   artifact: publishcopy
+
       # - task: CopyFiles@2
       #   name: 'publish_task'
       #   displayName: 'Copy Build to Release Dir'
