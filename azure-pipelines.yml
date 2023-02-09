@@ -67,12 +67,12 @@ stages:
       - download: current
         artifact: buildartifcatfiles1
 
-      # - task: CopyFiles@2
-      #   name: 'publish_task'
-      #   displayName: 'Copy Build to Release Dir'
-      #   inputs:
-      #     SourceFolder: '$(System.DefaultWorkingDirectory)\mypublishcopy'
-      #     Contents: '**'
-      #     TargetFolder: '$(Build.ArtifactStagingDirectory)\myreleasecopy'
-      #     OverWrite: true
-      #     preserveTimestamp: true
+      - task: CopyFiles@2
+        name: 'publish_task'
+        displayName: 'Copy Build to Release Dir'
+        inputs:
+          SourceFolder: '$(System.DefaultWorkingDirectory)\..\buildartifcatfiles1'
+          Contents: '**'
+          TargetFolder: 'C:\inetpub\wwwroot\myfirst'
+          OverWrite: true
+          preserveTimestamp: true
