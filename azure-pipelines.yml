@@ -37,7 +37,16 @@ steps:
     SearchPattern: '*.*'
     PublishSymbols: false
   continueOnError: true
-    
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    ArtifactName: '$(Parameters.ArtifactName)'
+    publishLocation: FilePath
+    TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
+  condition: succeededOrFailed()
+
 # - task: PublishBuildArtifacts@1
 #   inputs:
 #     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
