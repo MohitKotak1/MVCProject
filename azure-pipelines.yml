@@ -16,60 +16,54 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
-- task: NuGetToolInstaller@1
+stages:
+- stage: build
+  displayName: Build Stage
+  jobs:
+    - job: Build
+      displayName: Build
+      pool: 
+        name: default
+        steps:
+        - task: NuGetToolInstaller@1
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+        - task: NuGetCommand@2
+          inputs:
+            restoreSolution: '$(solution)'
 
-- task: VSBuild@1
-  displayName: 'Build Solution & Publish'
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:PublishProfile="$(System.DefaultWorkingDirectory)\\MVCFirst\Properties\PublishProfiles\FolderProfile.pubxml"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+        - task: VSBuild@1
+          name: 'build_task'
+          displayName: 'Build Solution & Publish'
+          inputs:
+            solution: '$(solution)'
+            msbuildArgs: '/p:DeployOnBuild=true /p:PublishProfile="$(System.DefaultWorkingDirectory)\\MVCFirst\Properties\PublishProfiles\FolderProfile.pubxml"'
+            platform: '$(buildPlatform)'
+            configuration: '$(buildConfiguration)'
 
-# - task: VSTest@2
-#   displayName: 'Test Assemblies'
-#   inputs:
-#     testAssemblyVer2: |
-#      **\$(BuildConfiguration)\*test*.dll
-#      !**\*TestAdapter.dll
-#      !**\obj\**   
-#     platform: '$(BuildPlatform)'
-#     configuration: '$(BuildConfiguration)'
-  
-# - task: DotNetCoreCLI@2
-#   inputs:
-#     command: 'test'
-#     projects: '$(System.DefaultWorkingDirectory)\\MVCFirstTest\MVCFirstTest.csproj'
-#     arguments: '--configuration $(buildConfiguration)'
-- task: VSTest@2
-  inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\*test*.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)\MVCFirstTest\bin\Debug'
-    
-# - task: VSTest@2
-#   displayName: 'Unit Test Run'
-#   inputs:
-#     testSelector: 'testAssemblies'
-#     testAssemblyVer2: |
-#       **\*test*.dll
-#       !**\*TestAdapter.dll
-#       !**\obj\**
-#     searchFolder: '$(System.DefaultWorkingDirectory)\\MVCFirstTest'
-    
-# - task: CopyFiles@2
-#   inputs:
-#     SourceFolder: '../src/Publish'
-#     Contents: '**'
-#     TargetFolder: '$(Build.ArtifactStagingDirectory)'
-#     OverWrite: true
-#     preserveTimestamp: true
-    
+        - task: VSTest@2
+          name: 'unit_test_task' 
+          inputs:
+            testSelector: 'testAssemblies'
+            testAssemblyVer2: |
+              **\*test*.dll
+              !**\*TestAdapter.dll
+              !**\obj\**
+            searchFolder: '$(System.DefaultWorkingDirectory)\MVCFirstTest\bin\Debug'
+
+- stage: deploy 
+  displayName: Deploy Stage
+  dependsOn: build
+  jobs:
+    - job: Build
+      pool: 
+        name: default
+      steps:  
+      - task: CopyFiles@2
+        name: 'publish_task'
+        displayName: 'Copy Build to Release Dir'
+        inputs:
+          SourceFolder: '$(System.DefaultWorkingDirectory)\mypublishcopy'
+          Contents: '**'
+          TargetFolder: '$(System.DefaultWorkingDirectory)\myreleasecopy'
+          OverWrite: true
+          preserveTimestamp: true
