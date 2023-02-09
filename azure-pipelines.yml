@@ -45,7 +45,7 @@ steps:
   inputs:
     command: 'test'
     projects: '$(System.DefaultWorkingDirectory)\\MVCFirstTest\MVCFirstTest.csproj'
-    arguments: '--configuration debug'
+    arguments: '--configuration $(buildConfiguration)'
     
 # - task: VSTest@2
 #   displayName: 'Unit Test Run'
