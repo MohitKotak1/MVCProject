@@ -31,15 +31,22 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: VSTest@2
-  displayName: 'Unit Test Run'
+- task: DotNetCoreCLI@2
+  displayName: 'unit tests job'
   inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\*test*.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)\\MVCFirstTest'
+    command: 'test'
+    projects: '**/*Test*/*.csproj'
+    arguments: '--configuration debug'
+    
+# - task: VSTest@2
+#   displayName: 'Unit Test Run'
+#   inputs:
+#     testSelector: 'testAssemblies'
+#     testAssemblyVer2: |
+#       **\*test*.dll
+#       !**\*TestAdapter.dll
+#       !**\obj\**
+#     searchFolder: '$(System.DefaultWorkingDirectory)\\MVCFirstTest'
     
 # - task: CopyFiles@2
 #   inputs:
