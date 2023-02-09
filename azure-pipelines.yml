@@ -22,32 +22,32 @@ stages:
       
       pool: 
         name: default
-        steps:
-        - task: NuGetToolInstaller@1
+      steps:
+      - task: NuGetToolInstaller@1
 
-        - task: NuGetCommand@2
-          inputs:
-            restoreSolution: '$(solution)'
+      - task: NuGetCommand@2
+        inputs:
+          restoreSolution: '$(solution)'
 
-        - task: VSBuild@1
-          name: 'build_task'
-          displayName: 'Build Solution & Publish'
-          inputs:
-            solution: '$(solution)'
-            msbuildArgs: '/p:DeployOnBuild=true /p:PublishProfile="$(System.DefaultWorkingDirectory)\\MVCFirst\Properties\PublishProfiles\FolderProfile.pubxml"'
-            platform: '$(buildPlatform)'
-            configuration: '$(buildConfiguration)'
+      - task: VSBuild@1
+        name: 'build_task'
+        displayName: 'Build Solution & Publish'
+        inputs:
+          solution: '$(solution)'
+          msbuildArgs: '/p:DeployOnBuild=true /p:PublishProfile="$(System.DefaultWorkingDirectory)\\MVCFirst\Properties\PublishProfiles\FolderProfile.pubxml"'
+          platform: '$(buildPlatform)'
+          configuration: '$(buildConfiguration)'
 
-        - task: VSTest@2
-          displayName: Unit Test Execution
-          name: 'unit_test_task' 
-          inputs:
-            testSelector: 'testAssemblies'
-            testAssemblyVer2: |
-              **\*test*.dll
-              !**\*TestAdapter.dll
-              !**\obj\**
-            searchFolder: '$(System.DefaultWorkingDirectory)\MVCFirstTest\bin\Debug'
+      - task: VSTest@2
+        displayName: Unit Test Execution
+        name: 'unit_test_task' 
+        inputs:
+          testSelector: 'testAssemblies'
+          testAssemblyVer2: |
+            **\*test*.dll
+            !**\*TestAdapter.dll
+            !**\obj\**
+          searchFolder: '$(System.DefaultWorkingDirectory)\MVCFirstTest\bin\Debug'
 
 - stage: deploy 
   displayName: Deploy Stage
