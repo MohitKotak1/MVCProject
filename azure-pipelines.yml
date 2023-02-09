@@ -54,7 +54,7 @@ stages:
   displayName: Deploy Stage
   dependsOn: build
   jobs:
-    - job: Build
+    - job: Deploy
       pool: 
         name: default
       steps:  
