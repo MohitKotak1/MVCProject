@@ -44,7 +44,7 @@ steps:
     PathtoPublish: '$(build.artifactstagingdirectory)'
     ArtifactName: '$(Parameters.ArtifactName)'
     publishLocation: FilePath
-    TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
+    TargetPath: '$(Build.ArtifactStagingDirectory)\$(Build.DefinitionName)\$(Build.BuildNumber)'
   condition: succeededOrFailed()
 
 # - task: PublishBuildArtifacts@1
