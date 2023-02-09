@@ -63,7 +63,7 @@ stages:
         name: default
 
       steps:
-      # - script: echo "Hello....." 
+      
       - download: current
         artifact: buildartifcatfiles1
       
