@@ -4,8 +4,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>C:\bildtemp</_PublishTargetUrl>
-    <History>True|2023-02-02T05:37:29.3370092Z;</History>
+    <_PublishTargetUrl>C:\agent\_work\3\s\mypublishcopy</_PublishTargetUrl>
+    <History>True|2023-02-09T07:21:07.9613597Z;True|2023-02-02T11:07:29.3370092+05:30;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -16,10 +16,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/27/2022 23:39:10</publishTime>
     </File>
     <File Include="bin/MVCFirst.dll">
-      <publishTime>02/08/2023 16:14:18</publishTime>
+      <publishTime>02/09/2023 12:51:05</publishTime>
     </File>
     <File Include="bin/MVCFirst.pdb">
-      <publishTime>02/08/2023 16:14:18</publishTime>
+      <publishTime>02/09/2023 12:51:05</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>08/08/2018 05:38:48</publishTime>
