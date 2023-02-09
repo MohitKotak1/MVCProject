@@ -62,8 +62,8 @@ stages:
         name: 'publish_task'
         displayName: 'Copy Build to Release Dir'
         inputs:
-          SourceFolder: '$(System.DefaultWorkingDirectory)\mypublishcopy'
+          SourceFolder: '$(Build.ArtifactStagingDirectory)\mypublishcopy'
           Contents: '**'
-          TargetFolder: '$(System.DefaultWorkingDirectory)\myreleasecopy'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)\myreleasecopy'
           OverWrite: true
           preserveTimestamp: true
