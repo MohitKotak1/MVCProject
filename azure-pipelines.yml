@@ -31,21 +31,29 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: PublishSymbols@2
-  displayName: 'Publish symbols path'
+- task: DotNetCoreCLI@2
   inputs:
-    SearchPattern: '*.*'
-    PublishSymbols: false
-  continueOnError: true
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact'
-  inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
-    ArtifactName: '$(Parameters.ArtifactName)'
-    publishLocation: FilePath
-    TargetPath: '$(Build.ArtifactStagingDirectory)\$(Build.DefinitionName)\$(Build.BuildNumber)'
-  condition: succeededOrFailed()
+# - task: PublishSymbols@2
+#   displayName: 'Publish symbols path'
+#   inputs:
+#     SearchPattern: '*.*'
+#     PublishSymbols: false
+#   continueOnError: true
+
+# - task: PublishBuildArtifacts@1
+#   displayName: 'Publish Artifact'
+#   inputs:
+#     PathtoPublish: '$(build.artifactstagingdirectory)'
+#     ArtifactName: '$(Parameters.ArtifactName)'
+#     publishLocation: FilePath
+#     TargetPath: '$(Build.ArtifactStagingDirectory)\$(Build.DefinitionName)\$(Build.BuildNumber)'
+#   condition: succeededOrFailed()
+
 
 # - task: PublishBuildArtifacts@1
 #   inputs:
