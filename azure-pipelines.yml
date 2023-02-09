@@ -49,6 +49,8 @@ stages:
               !**\*TestAdapter.dll
               !**\obj\**
             searchFolder: '$(System.DefaultWorkingDirectory)\MVCFirstTest\bin\Debug'
+        - publish: $(System.DefaultWorkingDirectory)\mypublishcopy
+          artifact: publishcopy
 
 - stage: deploy 
   displayName: Deploy Stage
@@ -58,12 +60,14 @@ stages:
       pool: 
         name: default
       steps:  
-      - task: CopyFiles@2
-        name: 'publish_task'
-        displayName: 'Copy Build to Release Dir'
-        inputs:
-          SourceFolder: '$(Build.ArtifactStagingDirectory)\mypublishcopy'
-          Contents: '**'
-          TargetFolder: '$(Build.ArtifactStagingDirectory)\myreleasecopy'
-          OverWrite: true
-          preserveTimestamp: true
+      - download: current
+        artifact: publishcopy
+      # - task: CopyFiles@2
+      #   name: 'publish_task'
+      #   displayName: 'Copy Build to Release Dir'
+      #   inputs:
+      #     SourceFolder: '$(Build.ArtifactStagingDirectory)\mypublishcopy'
+      #     Contents: '**'
+      #     TargetFolder: '$(Build.ArtifactStagingDirectory)\myreleasecopy'
+      #     OverWrite: true
+      #     preserveTimestamp: true
