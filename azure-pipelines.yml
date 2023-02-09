@@ -49,6 +49,7 @@ stages:
               !**\*TestAdapter.dll
               !**\obj\**
             searchFolder: '$(System.DefaultWorkingDirectory)\MVCFirstTest\bin\Debug'
+            
         - publish: $(System.DefaultWorkingDirectory)\mypublishcopy
           artifact: publishcopy
 
