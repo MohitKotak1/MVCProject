@@ -7,9 +7,6 @@ trigger:
   branches:
     include:
     - main
-
-pool:
-  name: default
    
 variables:
   solution: '**/*.sln'
@@ -22,6 +19,7 @@ stages:
   jobs:
     - job: Build
       displayName: Build
+      
       pool: 
         name: default
         steps:
@@ -56,9 +54,12 @@ stages:
   dependsOn: build
   jobs:
     - job: Deploy
+
       pool: 
         name: default
-      steps:  
+
+      steps:
+      - script: echo "Hello....." 
       # - download: current
       #   artifact: publishcopy
 
