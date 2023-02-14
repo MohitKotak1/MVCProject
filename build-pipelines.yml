@@ -51,26 +51,26 @@ stages:
         displayName: Publish build files
         artifact: buildartifcatfiles1
 
-- stage: deploy 
-  displayName: Deploy Stage
-  dependsOn: build
-  jobs:
-    - job: Deploy
+# - stage: deploy 
+#   displayName: Deploy Stage
+#   dependsOn: build
+#   jobs:
+#     - job: Deploy
 
-      pool: 
-        name: default
+#       pool: 
+#         name: default
 
-      steps:
+#       steps:
       
-      - download: current
-        artifact: buildartifcatfiles1
+#       - download: current
+#         artifact: buildartifcatfiles1
       
-      - task: CopyFiles@2
-        name: 'publish_task'
-        displayName: 'Copy Build to Release Dir'
-        inputs:
-          SourceFolder: '$(System.DefaultWorkingDirectory)\..\buildartifcatfiles1'
-          Contents: '**'
-          TargetFolder: '$(System.DefaultWorkingDirectory)\..\finalRelase'
-          OverWrite: true
-          preserveTimestamp: true
+#       - task: CopyFiles@2
+#         name: 'publish_task'
+#         displayName: 'Copy Build to Release Dir'
+#         inputs:
+#           SourceFolder: '$(System.DefaultWorkingDirectory)\..\buildartifcatfiles1'
+#           Contents: '**'
+#           TargetFolder: '$(System.DefaultWorkingDirectory)\..\finalRelase'
+#           OverWrite: true
+#           preserveTimestamp: true
