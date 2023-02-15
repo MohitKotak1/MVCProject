@@ -7,8 +7,7 @@
 # - main
 pr:
 - main
-- releases/*
-   
+
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
