@@ -5,7 +5,7 @@
 
 # trigger:
 # - main
-pr:
+trigger:
 - self
 
 variables:
