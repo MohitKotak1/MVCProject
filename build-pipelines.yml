@@ -6,7 +6,7 @@
 # trigger:
 # - main
 pr:
-- main
+- self
 
 variables:
   solution: '**/*.sln'
